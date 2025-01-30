@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# Jika file dengan nama yang diminta ada, tambahkan ekstensi .php
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
+
+# Jika request bukan file atau folder yang valid, arahkan ke index.php untuk routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+
+# Proteksi file sensitif
+<FilesMatch "(config\.php|\.env|composer\.json|composer\.lock)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Blokir folder vendor agar tidak bisa diakses langsung
+RewriteRule ^vendor/ - [F,L]
