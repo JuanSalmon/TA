@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password']; // Hash password
     
     // Query untuk menambahkan user
-    $sql = "INSERT INTO user_db (username, password) VALUES (? ,?)";
+    $sql = "INSERT INTO users (name, password) VALUES (? ,?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Eksekusi query
         if ($stmt->execute()) {
-            header("Location: ../../../login2/index.html");
+            header("Location: ../../../login/index.php");
             exit();
         } else {
             echo "Error: " . $stmt->error;

@@ -12,9 +12,35 @@
 
   <!-- Core Css -->
   <link rel="stylesheet" href="/login/assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+  <style>
+        /* Styling untuk input dan tombol mata */
+        .password-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+        .password-container input {
+            width: 100%;
+            padding: 10px;
+            padding-right: 40px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
+        }
+        .password-container i {
+            position: absolute;
+            right: 10px;
+            top: 70%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+            z-index: 2; /* Pastikan ikon berada di atas input */
+        }
+  </style>
   
-
   <title>Login MQTT</title>
 </head>
 
@@ -38,9 +64,10 @@
                     <label for="Username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="nama" name="nama" aria-describedby="emailHelp">
                   </div>
-                  <div class="mb-4">
+                  <div class="mb-4 password-container">
                     <label for="Password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="Password" name="password">
+                    <input type="password" class="form-control" id="Password" name="password" style="padding-right: 40px;">
+                    <i class="fas fa-eye" id="togglePassword"></i>
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <a class="text-primary fw-medium" href="../main/authentication-forgot-password.html">Forgot
@@ -220,6 +247,24 @@
 
   <!-- solar icons -->
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+  <script>
+        // JavaScript untuk menampilkan/menyembunyikan password
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('Password');
+
+        togglePassword.addEventListener('click', function () {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Tampilkan password
+                togglePassword.classList.remove('fa-eye');
+                togglePassword.classList.add('fa-eye-slash'); // Ubah ikon ke mata tertutup
+            } else {
+                passwordField.type = 'password'; // Sembunyikan password
+                togglePassword.classList.remove('fa-eye-slash');
+                togglePassword.classList.add('fa-eye'); // Ubah ikon ke mata terbuka
+            }
+        });
+  </script>
 </body>
 
 </html>

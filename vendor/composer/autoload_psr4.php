@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Juan\\WebIot\\' => array($baseDir . '/src'),
+    'Jubox\\Web\\' => array($baseDir . '/src'),
 );

@@ -9,12 +9,12 @@ class ComposerStaticInitac0e7f68df597749414102bf825c8df2
     public static $prefixLengthsPsr4 = array (
         'J' => 
         array (
-            'Juan\\WebIot\\' => 12,
+            'Jubox\\Web\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Juan\\WebIot\\' => 
+        'Jubox\\Web\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

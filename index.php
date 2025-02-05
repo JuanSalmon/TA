@@ -5,7 +5,13 @@ require __DIR__ . '/vendor/autoload.php';
 // Load konfigurasi aplikasi (misalnya database)
 require __DIR__ . '/config/config.php';
 
-require __DIR__ . '/function.php';
+header("Location: ../../error/index.php");'/config/function.php';
+
+if (!isset($_GET['url']) || empty($_GET['url'])) {
+    header("Location: ../../landing/landingpage/index.php");
+    exit;
+}
+
 // Tangkap URL untuk routing
 $page = isset($_GET['url']) ? $_GET['url'] : 'landing';
 
@@ -13,7 +19,7 @@ $page = isset($_GET['url']) ? $_GET['url'] : 'landing';
 $allowed_pages = ['landing', 'login', 'regis', 'dashboard'];
 if (!in_array($page, $allowed_pages)) {
     http_response_code(404);
-    echo "404 - Halaman tidak ditemukan!";
+    header("Location: ../../error/index.php");
     exit;
 }
 
@@ -23,5 +29,6 @@ if (file_exists($page_path)) {
     require $page_path;
 } else {
     echo "404 - Halaman tidak ditemukan!";
+    header("Location: ../../error/index.php");
 }
 ?>

@@ -1,16 +1,9 @@
 {
-    "name": "juan/web-iot",
-    "description": "web iot",
-    "type": "project",
+    "name": "jubox/web",
     "autoload": {
         "psr-4": {
-            "Juan\\WebIot\\": "src/"
+            "Jubox\\Web\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Juan"
-        }
-    ],
     "require": {}
 }

@@ -1,20 +1,20 @@
 <?php return array(
     'root' => array(
-        'name' => 'juan/web-iot',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
-        'type' => 'project',
+        'name' => 'jubox/web',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '735a7fe4ab766c13991e31ce29e9e8fc8dbedbaa',
+        'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'juan/web-iot' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
-            'type' => 'project',
+        'jubox/web' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '735a7fe4ab766c13991e31ce29e9e8fc8dbedbaa',
+            'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,

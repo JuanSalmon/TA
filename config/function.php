@@ -12,7 +12,7 @@ if (isset($_POST['login'])) {
     }
 
     // Query User
-    $query_user = "SELECT * FROM user_db WHERE username = '$username' AND password = '$password'";
+    $query_user = "SELECT * FROM users WHERE name = '$username' AND password = '$password'";
     $result_user = mysqli_query($koneksi, $query_user);
 
     if (!$result_user) {
