@@ -3,7 +3,7 @@
         'name' => 'jubox/web',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '735a7fe4ab766c13991e31ce29e9e8fc8dbedbaa',
+        'reference' => '9b7d9c15095b279899d4083648642191bde2f763',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'jubox/web' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '735a7fe4ab766c13991e31ce29e9e8fc8dbedbaa',
+            'reference' => '9b7d9c15095b279899d4083648642191bde2f763',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

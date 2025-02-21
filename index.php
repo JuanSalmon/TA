@@ -8,7 +8,7 @@ require __DIR__ . '/config/config.php';
 header("Location: ../../error/index.php");'/config/function.php';
 
 if (!isset($_GET['url']) || empty($_GET['url'])) {
-    header("Location: ../../landing/landingpage/index.php");
+    header("Location: ../../landing/index.php");
     exit;
 }
 

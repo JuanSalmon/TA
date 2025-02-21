@@ -8,18 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/png" href="../src/assets/images/logos/favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="../src/assets/images/logos/logo-pnk.png" />
 
   <!-- Core Css -->
   <link rel="stylesheet" href="../src/assets/css/styles.css" />
 
-  <title>Modernize Bootstrap Admin</title>
+  <title>IoT Broker PNK</title>
 </head>
 
 <body>
   <!-- Preloader -->
   <div class="preloader">
-    <img src="../src/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+    <img src="../src/assets/images/logos/logo-pnk.png" alt="loader" class="lds-ripple img-fluid" />
   </div>
   <div id="main-wrapper">
     <div class="position-relative overflow-hidden min-vh-100 w-100 d-flex align-items-center justify-content-center">
