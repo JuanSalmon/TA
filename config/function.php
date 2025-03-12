@@ -1,50 +1,60 @@
 <?php
 session_start();
-include 'config.php';
+
+// Include file konfigurasi database
+$config = include 'config.php'; // Pastikan path ke config.php benar
+
+// Include class Database
+require_once 'database.php'; // Sesuaikan path ke file Database.php
+
+try {
+    // Buat objek Database
+    $database = new \Jubox\Web\Database($config);
+
+    // Dapatkan koneksi PDO
+    $koneksi = $database->getConnection();
+} catch (\PDOException $e) {
+    die("Koneksi database gagal: " . $e->getMessage());
+}
 
 if (isset($_POST['login'])) {
-    $username = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+    $username = $_POST['nama'];
+    $password = $_POST['password'];
 
-    // Debugging koneksi
-    if (!$koneksi) {
-        die("Koneksi gagal: " . mysqli_connect_error());
+    try {
+        // Query untuk tabel users
+        $query_user = "SELECT * FROM users WHERE name = :username AND password = :password";
+        $stmt_user = $koneksi->prepare($query_user);
+        $stmt_user->execute(['username' => $username, 'password' => $password]);
+
+        // Mengecek hasil query User
+        if ($stmt_user->rowCount() > 0) {
+            $_SESSION['username'] = $username;
+            header("Location: ../../../user/index.php"); // Redirect ke dashboard user
+            exit;
+        }
+    } catch (\PDOException $e) {
+        die("Query user gagal: " . $e->getMessage());
     }
 
-    // Query User
-    $query_user = "SELECT * FROM users WHERE name = '$username' AND password = '$password'";
-    $result_user = mysqli_query($koneksi, $query_user);
+    try {
+        // Query untuk tabel admin
+        $query_admin = "SELECT * FROM admin WHERE username = :username AND password = :password";
+        $stmt_admin = $koneksi->prepare($query_admin);
+        $stmt_admin->execute(['username' => $username, 'password' => $password]);
 
-    if (!$result_user) {
-        die("Query user_db gagal: " . mysqli_error($koneksi));
-    }
-
-    // Query Admin
-    $query_admin = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
-    $result_admin = mysqli_query($koneksi, $query_admin);
-
-    if (!$result_admin) {
-        die("Query admin gagal: " . mysqli_error($koneksi));
-    }
-
-    // Mengecek hasil query User
-    if (mysqli_num_rows($result_user) > 0) {
-        session_start();
-        $_SESSION['username'] = $username;
-        header("Location: ../../../user/index.php"); // Redirect ke dashboard user
-        exit;
-    }
-
-    // Mengecek hasil query Admin
-    if (mysqli_num_rows($result_admin) > 0) {
-        session_start();
-        $_SESSION['username'] = $username;
-        header("Location: ../../../admin/index.php"); // Redirect ke dashboard admin
-        exit;
+        // Mengecek hasil query Admin
+        if ($stmt_admin->rowCount() > 0) {
+            $_SESSION['username'] = $username;
+            header("Location: ../../../admin/index.php"); // Redirect ke dashboard admin
+            exit;
+        }
+    } catch (\PDOException $e) {
+        die("Query admin gagal: " . $e->getMessage());
     }
 
     // Jika username tidak ditemukan di kedua tabel
     echo "<script>alert('Username atau password salah!');</script>";
-    echo "<script>window.location.href='login.html';</script>";
+    echo "<script>window.location.href='../login/index.php';</script>";
 }
 ?>

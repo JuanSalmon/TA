@@ -181,7 +181,7 @@
                 <img src="../src/assets/images/logos/logo-pnk.png" alt="modernize-img" class="img-fluid pb-3" style="width: 35px; height: auto;"/>
               </a>
               <p class="mb-0 text-dark">
-                By PNK 2025
+                By ICT PNK 2025 
               </p>
             </div>
           </div>

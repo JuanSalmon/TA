@@ -57,7 +57,7 @@
             <div class="card mb-0">
               <div class="card-body">
                 <a href="../../../landing/index.php" class="text-nowrap logo-img text-center d-block mb-1 w-100">
-                  <img src="/login/assets/images/logos/logo-pnk.png" class="dark-logo" alt="Logo-Dark img-fluid" style="width: 200px; height: auto;" />
+                  <img src="../src/assets/images/logos/logo-pnk.png" class="dark-logo" alt="Logo-Dark img-fluid" style="width: 200px; height: auto;" />
                   <p class="fs-4 mb-0 text-dark">Login User Broker PNK</p>
                 </a>
                 <form  action="../config/function.php" method="post">

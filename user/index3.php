@@ -18,7 +18,7 @@ try {
     
     if ($stmt->rowCount() == 0) {
       // Jika username tidak ada di tabel admin, redirect ke login atau halaman lain
-      header("Location: ../login/index.php");
+      header("Location: ../login/login.php");
       exit;
   }
 
@@ -58,75 +58,8 @@ try {
       cursor: pointer;
       color: #aaa;
     }
-    .card {
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-}
-
-.card-title {
-    font-size: 1.5em;
-    
-}
-
-.text-muted {
-    font-size: 0.9em;
-    color: #666 !important;
-}
-
-.list-group-item {
-    border: none;
-    padding: 12px 0;
-}
-
-.list-group-item:not(:last-child) {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.text-dark {
-    color: #222 !important;
-}
-
-.fw-bold {
-    font-weight: 600;
-}
-
-.connection-value {
-    font-size: 0.95em;
-    word-break: break-all;
-}
-
-.copy-btn {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 8px;
-    background-color: transparent;
-    transition: background-color 0.2s;
-}
-
-.copy-btn:hover {
-    background-color: #f0f0f0;
-}
-
-.copy-btn i {
-    font-size: 1em;
-    color: #666;
-}
-
-/* Responsive adjustments */
-@media (max-width: 576px) {
-    .list-group-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .list-group-item .connection-value {
-        margin-top: 5px;
-    }
-    .copy-btn {
-        margin-top: 10px;
-    }
-}
   </style>
-  
+
   <title>User Dashboard Broker</title>
 </head>
 
@@ -192,7 +125,7 @@ try {
         <div class="fixed-profile p-3 mx-4 mb-2 bg-secondary-subtle rounded mt-3">
           <div class="hstack gap-3">
             <div class="john-title">
-              <h6 class="mb-0 fs-4 fw-semibold"><?php echo  $_SESSION['username']; ?></h6>
+              <h6 class="mb-0 fs-4 fw-semibold"><?php echo $_SESSION['username']; ?></h6>
             </div>
             <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout" href="../../logout/logout.php">
               <i class="ti ti-power fs-6"></i>
@@ -217,7 +150,7 @@ try {
               </li>
             </ul>
             <div class="d-block d-lg-none py-4">
-              <a href="index.php" class="text-nowrap logo-img">
+              <a href="../dark/index.html" class="text-nowrap logo-img">
                 <img src="../src/assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
                 <img src="../src/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
               </a>
@@ -278,7 +211,7 @@ try {
                 </a>
               </li>
               <li class="nav-item d-none d-xl-block">
-                <a href="/user/index.php" class="text-nowrap nav-link">
+                <a href="../dark/index.html" class="text-nowrap nav-link">
                   <img src="../src/assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="modernize-img" />
                   <img src="../src/assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="modernize-img" />
                 </a>
@@ -291,7 +224,7 @@ try {
             </ul>
             
             <div class="d-block d-xl-none">
-              <a href="/user/index.php" class="text-nowrap nav-link">
+              <a href="../dark/index.html" class="text-nowrap nav-link">
                 <img src="../src/assets/images/logos/dark-logo.svg" width="180" alt="modernize-img" />
               </a>
             </div>
@@ -344,43 +277,74 @@ try {
               </div>
             </div>
           </div>
-          <div class="container my-4">
-        <div class="card shadow-sm border">
-            <div class="card-body">
-                <h2 class="card-title mb-2">Connection Details</h2>
-                <p class="text-muted mb-4">Comprehensive details and statistics for your cluster</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="fw-bold text-dark">URL</span>
-                            <div class="text-dark connection-value" id="url">iot-broker.pnk.ac.id</div>
-                        </div>
-                        <button class="btn btn-outline-secondary btn-sm copy-btn" data-copy-target="url">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="fw-bold text-dark">Port</span>
-                            <div class="text-dark connection-value" id="port">1883</div>
-                        </div>
-                        <button class="btn btn-outline-secondary btn-sm copy-btn" data-copy-target="port">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="fw-bold text-dark">Websocket Port</span>
-                            <div class="text-dark connection-value" id="websocket-port">8083</div>
-                        </div>
-                        <button class="btn btn-outline-secondary btn-sm copy-btn" data-copy-target="websocket-port">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </li>
-                </ul>
+          <div class="card w-100 position-relative overflow-hidden">
+            <div class="px-4 py-3 border-bottom">
+              <h4 class="card-title mb-0">User</h4>
             </div>
-        </div>
-      </div>
+            <div class="card-body p-4">
+              <div class="table-responsive mb-4 border rounded-1">
+                <table class="table text-nowrap mb-0 align-middle table-striped w-100">
+                  <thead class="text-dark fs-4">
+                    <tr>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0 ms-3">User</h6>
+                      </th>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0">Password</h6>
+                      </th>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0 ms-2">Status</h6>
+                      </th>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0 ms-2">Allow</h6>
+                      </th>
+                      <th>
+                        <h6 class="fs-4 fw-semibold mb-0 ms-5">Action</h6>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="user-table-body">
+                        <?php foreach ($users as $user): ?>
+                            <tr data-user-id="<?php echo $user['id']; ?>">
+                                <td>
+                                    <h6 class="fw-normal mb-0 ms-3"><?php echo htmlspecialchars($user['name']); ?></h6>
+                                </td>
+                                <td>
+                                  <div class="password-container" >
+                                  <h6 class="password-text" data-password="<?php echo htmlspecialchars($user['password']); ?>">********</h6> <!-- Password masked -->
+                                    <i class="fas fa-eye toggle-password"></i>
+                                  </div>
+                                  </td>
+                                <td>
+                                    <h6 class="fw-normal mb-0 ms-2"><?php echo $user['allowed'] ? 'Allowed' : 'Not Allowed'; ?></h6>
+                                </td>
+                                <td>
+                                    <form action="update_status.php" method="POST" style="margin: 0;">
+                                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                        <input type="hidden" name="action" value="<?php echo $user['allowed'] ? 'disallow' : 'allow'; ?>">
+                                        <button 
+                                            type="submit" 
+                                            class="btn btn-sm <?php echo $user['allowed'] ? 'btn-danger' : 'btn-success'; ?>"
+                                        >
+                                            <?php echo $user['allowed'] ? 'Disallow' : 'Allow'; ?>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="delete_user.php" method="POST" style="display: inline-block; margin-left: 5px;">
+                                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- end tables -->
+            </div>
+          </div>
         </div>
       </div>
       <script>
@@ -420,53 +384,6 @@ try {
             });
         });
     </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const copyButtons = document.querySelectorAll('.copy-btn');
-
-    copyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-copy-target');
-            const targetElement = document.getElementById(targetId);
-            const textToCopy = targetElement.textContent;
-
-            if (!navigator.clipboard) {
-                // Fallback for browsers without Clipboard API
-                const tempInput = document.createElement('textarea');
-                tempInput.value = textToCopy;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                showFeedback(button, 'Copied!');
-                return;
-            }
-
-            // Use Clipboard API
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    showFeedback(button, 'Copied!');
-                })
-                .catch(err => {
-                    console.error('Failed to copy text: ', err);
-                    alert('Failed to copy text. Please try again.');
-                });
-        });
-    });
-
-    function showFeedback(button, message) {
-        const originalIcon = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check"></i> ' + message;
-        button.classList.add('btn-success');
-        button.classList.remove('btn-outline-secondary');
-        setTimeout(() => {
-            button.innerHTML = originalIcon;
-            button.classList.remove('btn-success');
-            button.classList.add('btn-outline-secondary');
-        }, 1500);
-    }
-});
-  </script>
 
 </body>
 

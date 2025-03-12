@@ -5,5 +5,8 @@
             "Jubox\\Web\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "php-mqtt/client": "^2.2",
+        "ratchet/pawl": "^0.4.2"
+    }
 }

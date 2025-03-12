@@ -30,7 +30,7 @@
               <img src="../src/assets/images/backgrounds/errorimg.svg" alt="modernize-img" class="img-fluid" width="500">
               <h1 class="fw-semibold mb-7 fs-9">Opps!!!</h1>
               <h4 class="fw-semibold mb-7">This page you are looking for could not be found.</h4>
-              <a class="btn btn-primary" href="../main/index.html" role="button">Go Back to Home</a>
+              <a class="btn btn-primary" href="../landing/index.php" role="button">Go Back to Home</a>
             </div>
           </div>
         </div>
