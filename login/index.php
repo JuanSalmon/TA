@@ -81,6 +81,15 @@
                   </div>
                 </form>
               </div>
+              <div class="card-footer text-center py-3">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <p class="mb-0">© 2025 Politeknik Negeri Kupang. All rights reserved.</p>
+                  </div>
+                  <div class="col-auto">
+                    <a href="../../../landing/index.php" class="text-primary fw-medium">Kembali ke Beranda</a>
+                  </div>
+                </div>
             </div>
           </div>
         </div>

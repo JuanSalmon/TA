@@ -12,7 +12,7 @@ try {
     $database = new \Jubox\Web\Database($config);
     // Dapatkan koneksi PDO
     $koneksi = $database->getConnection();
-    $query = "SELECT * FROM user_db WHERE username = :username";
+    $query = "SELECT * FROM users WHERE name = :username";
     $stmt = $koneksi->prepare($query);
     $stmt->execute(['username' => $_SESSION['username']]);
     
@@ -128,7 +128,7 @@ try {
             <div class="john-title">
               <h6 class="mb-0 fs-4 fw-semibold"><?php echo $_SESSION['username']; ?></h6>
             </div>
-            <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout" href="../../logout/logout.php">
+            <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout" onclick="confirmLogout()">
               <i class="ti ti-power fs-6"></i>
             </button>
           </div>
@@ -363,27 +363,26 @@ try {
 
   <!-- solar icons -->
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
-  <script>
-        // JavaScript untuk menampilkan/menyembunyikan password
-        document.querySelectorAll('.toggle-password').forEach(function (icon) {
-            icon.addEventListener('click', function () {
-                const passwordText = this.previousElementSibling; // h6 yang berisi teks password
-                const originalPassword = passwordText.getAttribute('data-password'); // Ambil password asli
-                const isMasked = passwordText.textContent === '********'; // Cek apakah saat ini tertutup
-
-                if (isMasked) {
-                    passwordText.textContent = originalPassword; // Tampilkan password asli
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash'); // Ubah ikon ke mata tertutup
-                } else {
-                    passwordText.textContent = '********'; // Tampilkan asterisk
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye'); // Ubah ikon ke mata terbuka
-                }
-            });
-        });
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmLogout() {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: 'Anda akan keluar dari dashboard!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Logout!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect ke halaman logout
+            window.location.href = 'logout.php';
+        }
+    });
+}
+</script>
 
 </body>
 

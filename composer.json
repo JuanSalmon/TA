@@ -7,6 +7,9 @@
     },
     "require": {
         "php-mqtt/client": "^2.2",
-        "ratchet/pawl": "^0.4.2"
+        "ratchet/pawl": "^0.4.3",
+        "react/event-loop": "^1.5",
+        "simps/mqtt": "^2.0",
+        "cboden/ratchet": "^0.4.4"
     }
 }

@@ -9,10 +9,10 @@ require_once __DIR__ . '/../config/database.php'; // Sesuaikan path ke file Data
 
 try {
     // Buat objek Database
-    $database = new \Jubox\Web\Database($config);
+    $database = new \Jubox\Web\Database($config); //ini harus diganti
     // Dapatkan koneksi PDO
     $koneksi = $database->getConnection();
-    $query = "SELECT * FROM user_db WHERE username = :username";
+    $query = "SELECT * FROM users WHERE name = :username";
     $stmt = $koneksi->prepare($query);
     $stmt->execute(['username' => $_SESSION['username']]);
     
@@ -192,9 +192,9 @@ try {
         <div class="fixed-profile p-3 mx-4 mb-2 bg-secondary-subtle rounded mt-3">
           <div class="hstack gap-3">
             <div class="john-title">
-              <h6 class="mb-0 fs-4 fw-semibold"><?php echo  $_SESSION['username']; ?></h6>
+              <h6 class="mb-0 fs-4 fw-semibold"><?php echo $_SESSION['username']; ?></h6>
             </div>
-            <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout" href="../../logout/logout.php">
+            <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout" onclick="confirmLogout()">
               <i class="ti ti-power fs-6"></i>
             </button>
           </div>
@@ -348,7 +348,6 @@ try {
         <div class="card shadow-sm border">
             <div class="card-body">
                 <h2 class="card-title mb-2">Connection Details</h2>
-                <p class="text-muted mb-4">Comprehensive details and statistics for your cluster</p>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
@@ -399,7 +398,7 @@ try {
 
   <!-- solar icons -->
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
         // JavaScript untuk menampilkan/menyembunyikan password
         document.querySelectorAll('.toggle-password').forEach(function (icon) {
@@ -466,8 +465,26 @@ try {
         }, 1500);
     }
 });
-  </script>
-
+</script>
+<script>
+function confirmLogout() {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: 'Anda akan keluar dari dashboard!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Logout!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect ke halaman logout
+            window.location.href = 'logout.php';
+        }
+    });
+}
+</script>
 </body>
 
 </html>

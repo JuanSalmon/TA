@@ -31,7 +31,7 @@ $username = $_SESSION['username'];
 try {
     global $pdo; // Pastikan koneksi PDO sudah diinisialisasi di config.php
 
-    $stmt = $pdo->prepare("SELECT id FROM user_db WHERE username = :username");
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE name = :username");
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

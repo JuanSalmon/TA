@@ -18,14 +18,16 @@ try {
 }
 
 if (isset($_POST['login'])) {
-    $username = $_POST['nama'];
-    $password = $_POST['password'];
-
+    $username = trim($_POST['nama'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    echo "Username: $username, Password: $password<br>";
     try {
         // Query untuk tabel users
         $query_user = "SELECT * FROM users WHERE name = :username AND password = :password";
+        echo "Query user: $query_user<br>"; // Debugging query
         $stmt_user = $koneksi->prepare($query_user);
         $stmt_user->execute(['username' => $username, 'password' => $password]);
+        $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
         // Mengecek hasil query User
         if ($stmt_user->rowCount() > 0) {
