@@ -7,6 +7,8 @@ $config = include __DIR__ . '/../config/config.php'; // Sesuaikan path ke config
 // Include class Database
 require_once __DIR__ . '/../config/database.php'; // Sesuaikan path ke file Database.php
 
+require_once __DIR__ . '/auth.php';
+
 try {
     // Buat objek Database
     $database = new \Jubox\Web\Database($config); //ini harus diganti
@@ -25,6 +27,12 @@ try {
 } catch (\PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
 }
+$activeUser = $_SESSION['activeUsers'] ?? [];
+foreach ($activeUser as $user) {
+    error_log("Aktivitas pengguna diperbarui untuk: " . print_r($user, true));
+}
+// var_dump($_SESSION['activeUser']);
+// die();
 ?>
 
 <!DOCTYPE html>
@@ -176,7 +184,7 @@ try {
                 <span>
                   <i class="ti ti-shopping-cart"></i>
                 </span>
-                <span class="hide-menu">Token</span>
+                <span class="hide-menu">Topik</span>
               </a>
             </li>
             <li class="sidebar-item">
@@ -262,11 +270,6 @@ try {
           <!-- ---------------------------------- -->
           <!-- End Vertical Layout Header -->
           <!-- ---------------------------------- -->
-
-          <!-- ------------------------------- -->
-          <!-- apps Dropdown in Small screen -->
-          <!-- ------------------------------- -->
-          <!--  Mobilenavbar -->
           
         </div>
         <div class="app-header with-horizontal">

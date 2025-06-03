@@ -1,62 +1,84 @@
 <?php
-session_start();
+// Mulai session hanya jika belum aktif
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Include file konfigurasi database
-$config = include 'config.php'; // Pastikan path ke config.php benar
+$config = include __DIR__ . '/config.php';
 
 // Include class Database
-require_once 'database.php'; // Sesuaikan path ke file Database.php
+require_once __DIR__ . '/database.php';
+
+// Include fungsi autentikasi
+require_once __DIR__ . '/auth_function.php';
 
 try {
     // Buat objek Database
     $database = new \Jubox\Web\Database($config);
-
     // Dapatkan koneksi PDO
     $koneksi = $database->getConnection();
+    
+    // Test koneksi
+    $test = $koneksi->query("SELECT 1");
+    error_log("Debug - Database connection test: " . ($test ? "success" : "failed"));
+    
 } catch (\PDOException $e) {
-    die("Koneksi database gagal: " . $e->getMessage());
+    error_log("Koneksi database gagal: " . $e->getMessage());
+    $_SESSION['error'] = "Terjadi kesalahan. Silakan coba lagi.";
+    header("Location: ../login/index.php");
+    exit();
 }
 
-if (isset($_POST['login'])) {
-    $username = trim($_POST['nama'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    echo "Username: $username, Password: $password<br>";
-    try {
-        // Query untuk tabel users
-        $query_user = "SELECT * FROM users WHERE name = :username AND password = :password";
-        echo "Query user: $query_user<br>"; // Debugging query
-        $stmt_user = $koneksi->prepare($query_user);
-        $stmt_user->execute(['username' => $username, 'password' => $password]);
-        $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-        // Mengecek hasil query User
-        if ($stmt_user->rowCount() > 0) {
-            $_SESSION['username'] = $username;
-            header("Location: ../../../user/index.php"); // Redirect ke dashboard user
-            exit;
-        }
-    } catch (\PDOException $e) {
-        die("Query user gagal: " . $e->getMessage());
-    }
+    // Debugging: Cek data POST yang diterima
+    error_log("Data POST diterima: username=$username, password=$password");
 
     try {
-        // Query untuk tabel admin
-        $query_admin = "SELECT * FROM admin WHERE username = :username AND password = :password";
-        $stmt_admin = $koneksi->prepare($query_admin);
-        $stmt_admin->execute(['username' => $username, 'password' => $password]);
-
-        // Mengecek hasil query Admin
-        if ($stmt_admin->rowCount() > 0) {
-            $_SESSION['username'] = $username;
-            header("Location: ../../../admin/index.php"); // Redirect ke dashboard admin
+        if (empty($username) || empty($password)) {
+            error_log("Login gagal: Username atau password kosong.");
+            $_SESSION['error'] = "Username dan password harus diisi.";
+            header("Location: ../login/index.php");
             exit;
         }
-    } catch (\PDOException $e) {
-        die("Query admin gagal: " . $e->getMessage());
-    }
 
-    // Jika username tidak ditemukan di kedua tabel
-    echo "<script>alert('Username atau password salah!');</script>";
-    echo "<script>window.location.href='../login/index.php';</script>";
+        // Panggil fungsi autentikasi
+        $authResult = authenticateUser($koneksi, $username, $password);
+
+        // Set sesi berdasarkan hasil autentikasi
+        if ($authResult['success']) {
+            // Set session data
+            foreach ($authResult['session_data'] as $key => $value) {
+                $_SESSION[$key] = $value;
+            }
+
+            // Update status online hanya untuk user biasa
+            if (strpos($authResult['redirect'], 'user') !== false) {
+                $stmt = $koneksi->prepare("UPDATE users SET is_online = 1, last_activity = NOW() WHERE id = :id");
+                $stmt->execute(['id' => $_SESSION['id']]);
+            }
+            // Admin tidak perlu update status online
+
+            header("Location: " . $authResult['redirect']);
+            exit;
+        } else {
+            $_SESSION['error'] = $authResult['session_data']['error'];
+            header("Location: ../login/index.php");
+            exit;
+        }
+
+    } catch (Exception $e) {
+        error_log("Login error: " . $e->getMessage());
+        $_SESSION['error'] = "Terjadi kesalahan. Silakan coba lagi.";
+        header("Location: ../login/index.php");
+        exit;
+    }
+} else {
+    // Jika bukan POST, redirect ke login
+    header("Location: ../login/index.php");
+    exit;
 }
 ?>

@@ -59,11 +59,20 @@
                 <a href="../../../landing/index.php" class="text-nowrap logo-img text-center d-block mb-1 w-100">
                   <img src="../src/assets/images/logos/logo-pnk.png" class="dark-logo" alt="Logo-Dark img-fluid" style="width: 200px; height: auto;" />
                   <p class="fs-4 mb-0 text-dark">Login User Broker PNK</p>
+                  <?php
+                    if (session_status() === PHP_SESSION_NONE) {
+                      session_start();
+                    }
+                    if (isset($_SESSION['error'])) {
+                      echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                      unset($_SESSION['error']);
+                    }
+                  ?>
                 </a>
-                <form  action="../config/function.php" method="post">
+                <form action="/../config/function.php" method="post">
                   <div class="mb-3">
                     <label for="Username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="Username" name="username" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4 password-container">
                     <label for="Password" class="form-label">Password</label>
