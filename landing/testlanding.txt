@@ -71,14 +71,6 @@ try {
     .hero-img-slide .active {
       display: block; /* Show only the active image */
     }
-    /* Smooth scrolling for the entire page */
-    html {
-      scroll-behavior: smooth;
-    }
-    /* Adjust section padding to prevent content from being hidden under fixed header */
-    section {
-      scroll-margin-top: 70px; /* Adjust based on header height */
-    }
   </style>
 </head>
 
@@ -101,7 +93,7 @@ try {
 
   <div id="main-wrapper" class="flex-column">
     <!-- Header -->
-    <header class="header fixed-top">
+    <header class="header">
       <nav class="navbar navbar-expand-lg py-0">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center logo-container" href="index.php">
@@ -146,6 +138,9 @@ try {
               <a class="nav-link" href="#production-template" data-bs-dismiss="offcanvas">Tentang</a>
             </li>
             <li class="nav-item mt-2">
+              <a class="nav-link" href="#panduan" data-bs-dismiss="offcanvas">Panduan</a>
+            </li>
+            <li class="nav-item mt-2">
               <a class="btn btn-primary fs-3 rounded btn-hover-shadow px-3 py-2 w-100" href="../login/index.php">Login</a>
             </li>
             <li class="nav-item mt-2">
@@ -177,7 +172,7 @@ try {
             </div>
             <!-- Hero Images (Hanya tampil di layar besar) -->
             <div class="col-xl-6 d-none d-xl-block">
-              <div class="hero-img-slide position-relative bg-primary-subtle p-2 rounded">
+              <div class="hero-img-slide position-relative bg-primary-subtle p-4 rounded">
                 <div class="d-flex flex-row">
                   <div>
                     <div class="banner-img-1">
@@ -202,7 +197,7 @@ try {
           <div class="row justify-content-center">
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
               <h2 class="text-center mb-0 fs-9 fw-bolder">
-                <?php echo htmlspecialchars($landing['description_1'] ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'); ?>
+                <?php echo htmlspecialchars($landing['description_1'] ?? 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'); ?>
               </h2>
             </div>
           </div>
@@ -243,7 +238,7 @@ try {
                 <img src="../src/assets/images/logos/logo-pnk.png" alt="modernize-img" class="img-fluid pb-3" style="width: 35px; height: auto;"/>
               </a>
               <p class="mb-0 text-dark">
-                Didukung oleh ICT PNK 2025
+                Didukung oleh ICTeam PNK 2025
               </p>
             </div>
           </div>
@@ -275,25 +270,6 @@ try {
         const randomIndex = Math.floor(Math.random() * images.length);
         images[randomIndex].style.display = 'block';
         images[randomIndex].classList.add('active');
-
-        // Handle smooth scrolling with offset for fixed header
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-              const headerOffset = document.querySelector('.header').offsetHeight || 70;
-              const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-              const offsetPosition = elementPosition - headerOffset;
-
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
-            }
-          });
-        });
       });
     </script>
 </body>

@@ -1,0 +1,76 @@
+    .image-wrapper {
+      width: 120%; /* Lebar wrapper (sesuaikan ukuran potongan) */
+      overflow: hidden; /* Sembunyikan bagian yang melebihi wrapper */
+      margin-left: auto; 
+      display: block;
+    }
+    .image-wrapper img {
+      transform: translateX(-20%); /* Geser gambar ke kiri sehingga bagian kirinya terpotong */
+    }
+    .slideup {
+      animation: slideUp 3s ease-in-out;
+    }
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Media Queries untuk Responsivitas */
+    @media (max-width: 991.98px) {
+      .hero-content h1 {
+        font-size: 2rem; /* Kecilkan judul di mobile */
+      }
+      .hero-content .btn {
+        padding: 0.5rem 1.5rem; /* Kecilkan tombol */
+        font-size: 0.9rem;
+      }
+      .navbar-nav {
+        text-align: center; /* Rata tengah di mobile */
+      }
+      .broker-text {
+        font-size: 1rem; /* Kecilkan teks di mobile */
+      }
+    }
+    @media (max-width: 575.98px) {
+      .preloader img {
+        transform: scale(2); /* Lebih kecil lagi di ponsel */
+      }
+      .hero-content h1 {
+        font-size: 1.5rem;
+      }
+      .d-sm-flex {
+        flex-direction: column; /* Tombol login/register bertumpuk */
+        align-items: stretch !important;
+      }
+      .d-sm-flex .btn {
+        width: 100%; /* Tombol penuh lebar */
+        margin-bottom: 1rem;
+      }
+      .d-sm-flex h5 {
+        margin: 0.5rem 0;
+      }
+    }
+    /* Penyesuaian untuk layar besar */
+    @media (min-width: 992px) {
+      .hero-img-slide {
+        padding: 2rem; /* Padding lebih besar untuk layar besar */
+      }
+    }
+
+
+<img src="<?php echo htmlspecialchars($landing['image_path_1'] ?? '../src/assets/images/frontend-pages/pnk2.png'); ?>" alt="Header Image 1" class="img-fluid" />
+<img src="<?php echo htmlspecialchars($landing['image_path_2'] ?? '../src/assets/images/frontend-pages/pnk3.png'); ?>" alt="Header Image 2" class="img-fluid" />
+
+
+<li class="nav-item ms-2">
+  <a class="btn btn-primary fs-3 rounded btn-hover-shadow px-3 py-2" href="../login/index.php">Login</a>
+</li>
+<li class="nav-item ms-2">
+  <a class="btn btn-outline-primary fs-3 rounded btn-hover-shadow px-3 py-2" href="../regis/index.php">Register</a>
+</li>
