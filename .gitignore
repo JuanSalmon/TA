@@ -1,0 +1,41 @@
+# Kredensial dan konfigurasi rahasia
+.env
+.env.*
+!.env.example
+
+# Dependency Composer (dipasang ulang dengan `composer install`)
+/vendor/
+
+# Log, cache, dan file sementara
+*.log
+/logs/
+/cache/
+/tmp/
+*.tmp
+
+# File upload dari pengguna (jika ada)
+/uploads/
+
+# Backup dan dump database
+*.sql
+*.bak
+*.backup
+
+# Sertifikat dan kunci (TLS Mosquitto, SSH, dll.)
+*.pem
+*.key
+*.crt
+*.p12
+
+# File editor dan sistem operasi
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Terraform (untuk tahap berikutnya)
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
