@@ -1,13 +1,17 @@
 <?php
-// Include file konfigurasi database
-$config = include __DIR__ . '/../config/config.php'; // Sesuaikan path ke config.php
+// Muat konfigurasi ke variabel lokal
+$configResult = require_once __DIR__ . '/../config/config.php';
+error_log("Config dimuat di landing/index.php: " . print_r($configResult, true));
 
-// Include class Database
-require_once __DIR__ . '/../config/database.php'; // Sesuaikan path ke file Database.php
+// Ekstrak config dari result
+if (!isset($configResult['success']) || !$configResult['success'] || empty($configResult['config'])) {
+    die("Konfigurasi database tidak valid: " . print_r($configResult, true));
+}
+$dbConfig = $configResult['config'];
 
 try {
     // Buat objek Database
-    $database = new \Jubox\Web\Database($config);
+    $database = new \Jubox\Web\Database($dbConfig);
     // Dapatkan koneksi PDO
     $koneksi = $database->getConnection();
 
@@ -18,6 +22,8 @@ try {
 } catch (\PDOException $e) {
     $error = "Koneksi database gagal: " . $e->getMessage();
     $landing = []; // Set array kosong jika query gagal
+    error_log($error);
+    echo $error;
 }
 ?>
 
@@ -43,21 +49,21 @@ try {
 
   <style>
     .preloader img {
-      transform: scale(3); /* Dikurangi untuk mobile */
-      max-width: 100px; /* Batasi ukuran di layar kecil */
+      transform: scale(3); 
+      max-width: 100px; 
     }
     .logo-container {
-      margin-left: 0; /* Dihapus untuk konsistensi di mobile */
+      margin-left: 0; 
       display: flex;
       align-items: center;
     }
     .broker-text {
-      font-size: 1.25rem; /* 20px */
+      font-size: 1.25rem; 
       font-weight: bold;
       color: #333;
       white-space: nowrap;
     }
-    /* Ensure hero-img-slide container is positioned correctly */
+    
     .hero-img-slide {
       overflow: hidden;
       position: relative;
@@ -66,19 +72,26 @@ try {
     .hero-img-slide .banner-img-2 {
       width: 100%;
       height: auto;
-      display: none; /* Initially hide both images */
+      display: none; 
     }
     .hero-img-slide .active {
-      display: block; /* Show only the active image */
+      display: block; 
     }
-    /* Smooth scrolling for the entire page */
+    
     html {
       scroll-behavior: smooth;
     }
-    /* Adjust section padding to prevent content from being hidden under fixed header */
+  
     section {
-      scroll-margin-top: 70px; /* Adjust based on header height */
+      scroll-margin-top: 70px; 
     }
+    .text-justified {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    max-width: 900px; 
+    font-size: 7px; !important;
+  }
   </style>
 </head>
 
@@ -200,9 +213,9 @@ try {
       <section class="production pb-5 pb-md-5 mb-5" id="production-template">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-              <h2 class="text-center mb-0 fs-9 fw-bolder">
-                <?php echo htmlspecialchars($landing['description_1'] ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'); ?>
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
+              <h2 class="text-left mb-0 fs-8 fw-bolder text-justified" lang="id">
+                <?php echo htmlspecialchars($landing['description_1'] ?? 'Politeknik Negeri Kupang (PNK) telah mengintegrasikan teknologi Internet of Things (IoT) dalam berbagai aspek pengembangan kampus, dengan fokus pada pemanfaatan Mosquitto MQTT sebagai broker untuk mendukung komunikasi data yang efisien dan real-time. Broker PNK menyediakan layanan MQTT bagi pengembangan IoT dan embedded system di Politeknik Negeri Kupang, memanfaatkan Mosquitto sebagai platform open-source untuk mengelola pertukaran data berbasis protokol Message Queue Telemetry Transport (MQTT). '); ?>
               </h2>
             </div>
           </div>
@@ -243,7 +256,7 @@ try {
                 <img src="../src/assets/images/logos/logo-pnk.png" alt="modernize-img" class="img-fluid pb-3" style="width: 35px; height: auto;"/>
               </a>
               <p class="mb-0 text-dark">
-                Didukung oleh ICT PNK 2025
+                © 2025 Politeknik Negeri Kupang.
               </p>
             </div>
           </div>
