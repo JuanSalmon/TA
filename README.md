@@ -6,6 +6,7 @@ A web-based management dashboard for an MQTT broker (Eclipse Mosquitto), built a
 
 The project is containerized with Docker, and every push is built and smoke-tested automatically with GitHub Actions.
 
+
 **Final project title (Indonesian):** *Implementasi Server MQTT Berbasis Ubuntu 24 Untuk Mendukung Penerapan Teknologi Internet of Things dan Embedded System di Politeknik Negeri Kupang*
 
 **Objectives**
