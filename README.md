@@ -140,12 +140,12 @@ The workflow in `.github/workflows/ci.yml` runs on every push to `testing` and `
 4. Push the branch: `git push origin your-feature`
 5. Open a Pull Request on GitHub.
 
-## License
+<!-- ## License
 
-MIT License. See the `LICENSE` file for details.
+MIT License. See the `LICENSE` file for details. -->
 
 ## Author and contact
 
 Juan Filbert William Salmon, Computer and Network Engineering graduate, Politeknik Negeri Kupang.
 
-Email: juansalmon1122@gmail.com
+Email: juanfilbert1122@gmail.com
