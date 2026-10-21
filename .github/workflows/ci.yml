@@ -1,0 +1,61 @@
+name: CI
+
+on: 
+  push:
+    branches: [testing, main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: check sintax PHP
+        run: |
+          find app -name "*.php" -not -path "*/vendor/*" -print0 \
+            | xargs -0 -n1 php -l > /dev/null
+
+smoke-test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Buat .env untuk pengujian (nilai dummy, bukan rahasia)
+        run: |
+          cat > .env <<'EOF'
+          DB_NAME=testdb
+          DB_USER=testuser
+          DB_PASS=testpass-ci
+          SMTP_HOST=localhost
+          SMTP_PORT=587
+          SMTP_USERNAME=ci
+          SMTP_PASSWORD=ci
+          SMTP_FROM_EMAIL=ci@example.com
+          SMTP_FROM_NAME=CI
+          APP_URL=http://localhost:8080
+          EOF
+
+      - name: Build dan jalankan stack
+        run: docker compose up -d --build --wait
+
+      - name: Tes aplikasi web
+        run: |
+          curl --fail --silent --show-error \
+              --retry 15 --retry-delay 3 --retry-connrefused \
+              -o /dev/null http://localhost:8080/login/index.php
+
+      - name: Tes broker MQTT (port 1883)
+        run: timeout 10 bash -c '</dev/tcp/localhost/1883'
+
+      - name: Tampilkan log jika gagal
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Matikan stack
+        if: always()
+        run: docker compose down -v
+  

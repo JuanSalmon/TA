@@ -5,19 +5,24 @@
 
 # Dependency Composer (dipasang ulang dengan `composer install`)
 /vendor/
+/app/vendor/
 
 # Log, cache, dan file sementara
 *.log
 /logs/
 /cache/
 /tmp/
+/app/logs/
+/app/cache/
 *.tmp
 
 # File upload dari pengguna (jika ada)
 /uploads/
+/app/uploads/
 
-# Backup dan dump database
+# Backup dan dump database (skema tanpa data dikecualikan di bawah)
 *.sql
+!database/schema.sql
 *.bak
 *.backup
 
